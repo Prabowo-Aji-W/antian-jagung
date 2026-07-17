@@ -10,13 +10,16 @@
 
 // GANTI URL INI dengan URL Web App hasil deploy Google Apps Script (Code.gs)
 // Contoh: https://script.google.com/macros/s/XXXXXXXXXXXXXXXXX/exec
-const API_URL = "https://script.google.com/macros/s/AKfycbxl3PekFTLcyKT6dJT8PpYxEXKmKXsn90bJy_eZ3L6RJrMnh4tcDBgovMFMq8UBjPx6/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbxRDr9aQ_9qu36bX7wp48DzyUFn4RdOuM1VJBY0OwrEOe2_-FpHzZAaP1jHGuAy6R2J/exec";
 
 // Daftar harga menu (mudah diubah di sini)
 const HARGA = {
-  bakarOriginal: { nama: "Jagung Bakar Original", harga: 9000 },
-  bakarCoklat: { nama: "Jagung Bakar Coklat", harga: 11000 },
-  manisOriginal: { nama: "Jagung Manis Original", harga: 9000 },
+  bakarOriginal: { nama: "Jagung Bakar Original", harga: 8000 },
+  bakarRasa: { nama: "Jagung Bakar Rasa", harga: 9000 },
+  bakar3Rasa: { nama: "Jagung Bakar 3 Rasa", harga: 10000 },
+  bakarCoklat: { nama: "Jagung Bakar Coklat/Custom", harga: 11000 },
+  manisOriginal: { nama: "Jagung Manis Original", harga: 7000 },
+  manisRasa: { nama: "Jagung Manis Rasa", harga: 9000 },
   manisCoklat: { nama: "Jagung Manis Coklat", harga: 11000 },
   cornRibs: { nama: "Corn Ribs", harga: 9000 },
 };
@@ -24,8 +27,11 @@ const HARGA = {
 // State jumlah pesanan saat ini
 let cart = {
   bakarOriginal: 0,
+  bakarRasa: 0,
+  bakar3Rasa: 0,
   bakarCoklat: 0,
   manisOriginal: 0,
+  manisRasa: 0,
   manisCoklat: 0,
   cornRibs: 0,
 };
@@ -141,6 +147,7 @@ function resetForm() {
   Object.keys(cart).forEach((key) => (cart[key] = 0));
   document.querySelectorAll(".qty-value").forEach((el) => (el.textContent = "0"));
   document.querySelectorAll('input[name="paymentMethod"]').forEach((el) => (el.checked = false));
+  document.getElementById("paymentSummaryLine").classList.add("d-none");
   hitungDanRenderRingkasan();
 }
 
@@ -185,8 +192,11 @@ async function simpanTransaksi() {
     tanggal: sekarang.toLocaleDateString("id-ID"),
     jam: sekarang.toLocaleTimeString("id-ID"),
     bakarOriginal: cart.bakarOriginal,
+    bakarRasa: cart.bakarRasa,
+    bakar3Rasa: cart.bakar3Rasa,
     bakarCoklat: cart.bakarCoklat,
     manisOriginal: cart.manisOriginal,
+    manisRasa: cart.manisRasa,
     manisCoklat: cart.manisCoklat,
     cornRibs: cart.cornRibs,
     total: total,
@@ -348,7 +358,12 @@ function pasangDarkMode() {
 function pasangEventPembayaran() {
   document.querySelectorAll('input[name="paymentMethod"]').forEach((input) => {
     input.addEventListener("change", () => {
-      document.querySelectorAll(".payment-box").forEach((box) => box.classList.remove("aktif"));
+      // Tampilkan metode yang dipilih di kartu Ringkasan, supaya kasir tetap
+      // bisa lihat meskipun pembayaran dipilih di awal sebelum pilih menu.
+      const baris = document.getElementById("paymentSummaryLine");
+      const nilai = document.getElementById("paymentSummaryValue");
+      nilai.textContent = input.value;
+      baris.classList.remove("d-none");
     });
   });
 }
