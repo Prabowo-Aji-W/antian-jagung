@@ -50,6 +50,32 @@
         </div>
       </div>
 
+      <!-- Kartu Metode Pembayaran (ditaruh di awal karena ada yang bayar duluan, ada yang belakangan) -->
+      <div class="card app-card mb-4">
+        <div class="card-header app-card-header">
+          <i class="bi bi-credit-card-2-front-fill"></i> Metode Pembayaran
+        </div>
+        <div class="card-body">
+          <div class="d-flex gap-2">
+            <label class="payment-option flex-fill">
+              <input type="radio" name="paymentMethod" value="QRIS" class="d-none">
+              <div class="payment-box">
+                <i class="bi bi-qr-code-scan"></i>
+                <span>QRIS</span>
+              </div>
+            </label>
+            <label class="payment-option flex-fill">
+              <input type="radio" name="paymentMethod" value="Cash" class="d-none">
+              <div class="payment-box">
+                <i class="bi bi-cash-stack"></i>
+                <span>Cash</span>
+              </div>
+            </label>
+          </div>
+          <p class="text-muted small mb-0 mt-2"><i class="bi bi-info-circle"></i> Boleh dipilih di awal atau nanti sebelum pesanan disimpan.</p>
+        </div>
+      </div>
+
       <!-- Kartu Menu -->
       <div class="card app-card mb-4">
         <div class="card-header app-card-header">
@@ -62,7 +88,29 @@
           <div class="menu-item" data-key="bakarOriginal">
             <div class="menu-info">
               <div class="menu-name">Original</div>
+              <div class="menu-price">Rp8.000</div>
+            </div>
+            <div class="qty-control">
+              <button class="btn btn-qty btn-minus" type="button"><i class="bi bi-dash-lg"></i></button>
+              <span class="qty-value">0</span>
+              <button class="btn btn-qty btn-plus" type="button"><i class="bi bi-plus-lg"></i></button>
+            </div>
+          </div>
+          <div class="menu-item" data-key="bakarRasa">
+            <div class="menu-info">
+              <div class="menu-name">Rasa</div>
               <div class="menu-price">Rp9.000</div>
+            </div>
+            <div class="qty-control">
+              <button class="btn btn-qty btn-minus" type="button"><i class="bi bi-dash-lg"></i></button>
+              <span class="qty-value">0</span>
+              <button class="btn btn-qty btn-plus" type="button"><i class="bi bi-plus-lg"></i></button>
+            </div>
+          </div>
+          <div class="menu-item" data-key="bakar3Rasa">
+            <div class="menu-info">
+              <div class="menu-name">3 Rasa</div>
+              <div class="menu-price">Rp10.000</div>
             </div>
             <div class="qty-control">
               <button class="btn btn-qty btn-minus" type="button"><i class="bi bi-dash-lg"></i></button>
@@ -72,7 +120,7 @@
           </div>
           <div class="menu-item" data-key="bakarCoklat">
             <div class="menu-info">
-              <div class="menu-name">Coklat</div>
+              <div class="menu-name">Coklat / Custom</div>
               <div class="menu-price">Rp11.000</div>
             </div>
             <div class="qty-control">
@@ -89,6 +137,17 @@
           <div class="menu-item" data-key="manisOriginal">
             <div class="menu-info">
               <div class="menu-name">Original</div>
+              <div class="menu-price">Rp7.000</div>
+            </div>
+            <div class="qty-control">
+              <button class="btn btn-qty btn-minus" type="button"><i class="bi bi-dash-lg"></i></button>
+              <span class="qty-value">0</span>
+              <button class="btn btn-qty btn-plus" type="button"><i class="bi bi-plus-lg"></i></button>
+            </div>
+          </div>
+          <div class="menu-item" data-key="manisRasa">
+            <div class="menu-info">
+              <div class="menu-name">Rasa</div>
               <div class="menu-price">Rp9.000</div>
             </div>
             <div class="qty-control">
@@ -150,27 +209,9 @@
             <span id="totalAmount" class="total-amount">Rp0</span>
           </div>
 
-          <hr>
-
-          <!-- Metode Pembayaran -->
-          <div class="mb-2">
-            <label class="form-label fw-semibold mb-2"><i class="bi bi-credit-card-2-front-fill"></i> Metode Pembayaran</label>
-            <div class="d-flex gap-2">
-              <label class="payment-option flex-fill">
-                <input type="radio" name="paymentMethod" value="QRIS" class="d-none">
-                <div class="payment-box">
-                  <i class="bi bi-qr-code-scan"></i>
-                  <span>QRIS</span>
-                </div>
-              </label>
-              <label class="payment-option flex-fill">
-                <input type="radio" name="paymentMethod" value="Cash" class="d-none">
-                <div class="payment-box">
-                  <i class="bi bi-cash-stack"></i>
-                  <span>Cash</span>
-                </div>
-              </label>
-            </div>
+          <div id="paymentSummaryLine" class="summary-line d-none">
+            <span class="label">Metode Pembayaran</span>
+            <span id="paymentSummaryValue" class="value">-</span>
           </div>
 
           <div class="d-grid gap-2 mt-4">
